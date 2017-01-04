@@ -39,15 +39,11 @@
 	  namedWindow(nameUI,WINDOW_AUTOSIZE);	// Open a window to show image
 	  vector<Mat> dataBase = loadDatabase();	// Load the database
 	  
-	  string filename = "test3.mp4";
-	  VideoCapture cap(filename);
+	  string filename = "varios.jpg";		// Get the image file from current folder
 	  Mat frame;
-	  if (!cap.isOpened()){cout<<"Cannot open selected video file\n";}
+	  frame = imread(filename, CV_LOAD_IMAGE_COLOR);   // Read the file
+	  resize(frame,frame,Size(0,0),0.25,0.25,INTER_LINEAR);		// Resize the picture 
 	  
-	  while(1){
-		  cap >> frame;
-		  if(frame.empty()){break;}
-		  
 	  Mat procsImg = preprocessing(frame);	// Basic preparation of the scene
 	  
 	  vector<vector<Point> > cardContours = findCardContours(procsImg);	// Get the biggest contours of the figure
@@ -63,10 +59,9 @@
 	  
 	  printIDonImage(cardID,frame,cardContours);	// Print the results on screen
 	  
-	  imshow(nameUI,frame);
-	  waitKey(20);
-	}
-	  return 0;
+	 imshow(nameUI,frame);
+	 waitKey(0);
+	 return 0;
   }
   
   
